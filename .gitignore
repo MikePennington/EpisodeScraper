@@ -20,7 +20,6 @@ testdata
 x64/
 x86/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 
@@ -252,3 +251,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+EpisodeScraper/bin/CommandLine.xml
+EpisodeScraper/bin/Newtonsoft.Json.xml
