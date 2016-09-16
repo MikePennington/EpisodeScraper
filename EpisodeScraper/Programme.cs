@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace EpisodeScraper
 {
-    [Serializable]
     public class Programme
     {
         public string Title { get; set; }
@@ -15,11 +14,17 @@ namespace EpisodeScraper
 
         public string ShortDescription { get; set; }
         public string Description { get; set; }
-        public string EpisodeNumber { get; set; }
+        public int Season { get; set; }
+        public int Episode { get; set; }
+
+        public string EpisodeInfoInXmltvnsFormat
+        {
+            get { return (Season - 1) + "." + (Episode - 1) + "."; }
+        }
 
         public override string ToString()
         {
-            return EpisodeNumber + " - " + Title + ": " + Description;
+            return Season + "." + Episode + " - " + Title + ": " + Description;
         }
     }
 }

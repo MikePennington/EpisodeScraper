@@ -30,6 +30,7 @@ namespace EpisodeScraper
 
             // Read XML
             Console.WriteLine("{0} programs found.", programNodes.Count);
+            Console.WriteLine("Grabbing episode information.");
             var programs = new List<Programme>();
             foreach (XmlNode node in programNodes)
             {
@@ -43,10 +44,10 @@ namespace EpisodeScraper
                     var response = GetUrl(detailUrl);
                     ParseResponse(response, p);
                     //Console.WriteLine(p);
-                    if (p.EpisodeNumber != null)
+                    if (p.Episode > 0 && p.Season > 0)
                     {
                         var episodeNode = node.SelectSingleNode("episode-num");
-                        episodeNode.InnerText = p.EpisodeNumber;
+                        episodeNode.InnerText = p.EpisodeInfoInXmltvnsFormat;
                         var systemAttr = episodeNode.Attributes["system"];
                         systemAttr.Value = "xmltv_ns";
                     }
@@ -56,7 +57,6 @@ namespace EpisodeScraper
             doc.Save(options.OutputFilePath);
 
             Console.WriteLine("Done");
-            Console.ReadKey();
         }
 
         private static Programme BuildProgramFromXmlNode(XmlNode node)
@@ -118,7 +118,8 @@ namespace EpisodeScraper
                 if(int.TryParse(seasonNumber.ToString().Replace("S", ""), out seasonInt)
                     && int.TryParse(episodeNumber.ToString().Replace("E", ""), out episodeInt))
                 {
-                    p.EpisodeNumber = seasonInt + "." + episodeInt;
+                    p.Season = seasonInt;
+                    p.Episode = episodeInt;
                 }
             }
 
