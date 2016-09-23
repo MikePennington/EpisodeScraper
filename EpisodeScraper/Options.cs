@@ -10,7 +10,7 @@ namespace EpisodeScraper
 {
     class Options
     {
-        [Option('h', "hours", DefaultValue = 24, HelpText = "Hours ahead to fetch details for.")]
+        [Option('h', "hours", DefaultValue = 48, HelpText = "Hours ahead to fetch details for.")]
         public int HoursAheadToGetDetail { get; set; }
 
         [Option('i', "input", Required = true, HelpText = "Input file path.")]
